@@ -25,6 +25,15 @@ class UsersController {
 		}
 	}
 
+	async getAllStudents(req, res) {
+		try {
+			const users = await User.find({ role: "student" });
+			res.send(users);
+		} catch (error) {
+			res.status(500).send({ error: error });
+		}
+	}
+
 	async getById(req, res) {
 		const _id = req.user._id;
 		try {
