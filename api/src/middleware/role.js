@@ -1,10 +1,9 @@
 const checkRole = (roles) => (req, res, next) => {
-  roles.map((role) => {
-	  if (req.user && req.user.role === role) {
-		  return next();
-	  }
-  });
-	return res.status(401).send({ error: "Unauthorized" });
-};
+	if (!req.user || !roles.includes(req.user.role)) {
+	  return res.status(401).send({ error: "Unauthorized, permissions denied" });
+	}
+	next();
+  };
+  
 
 module.exports = checkRole;

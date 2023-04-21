@@ -27,7 +27,7 @@ class UsersController {
 
 	async getAllStudents(req, res) {
 		try {
-			const users = await User.find({ role: "student" });
+			const users = await User.find({ role: "student" }).select('+role');
 			res.send(users);
 		} catch (error) {
 			res.status(500).send({ error: error });
@@ -37,7 +37,7 @@ class UsersController {
 	async getById(req, res) {
 		const _id = req.user._id;
 		try {
-			const user = await User.findById(_id).select('+role').populate("documents");
+			const user = await User.findById(_id).select('+role').populate("document");
 			if (!user) {
 				return res.status(404).send();
 			}

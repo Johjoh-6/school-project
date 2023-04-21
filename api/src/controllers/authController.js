@@ -22,7 +22,7 @@ class AuthController {
 		const { email, password } = req.body;
 		if (!(email, password)) return res.status(400).send({ error: "Email and password required" });
 		try {
-			const user = await User.findOne({ email }).select("+password");
+			const user = await User.findOne({ email }).select("+password").select("+role");
 			if (!user) return res.status(400).send({ error: "Email not found" });
 			const isMatch = await user.isPasswordMatch(password);
 			if (!isMatch) return res.status(400).send({ error: "Invalid password" });

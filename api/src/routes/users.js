@@ -6,9 +6,10 @@ const checkRole = require("../middleware/role");
 
 const router = express.Router();
 
+const admin = "staff";
 router.get("/", auth, UsersController.getById);
 router.put("/", auth, UsersController.update);
-router.get("/students", auth, checkRole(["staff"]), UsersController.getAllStudents);
+router.get("/students", auth, checkRole([admin]), UsersController.getAllStudents);
 router.post("/add_documents", auth, DocumentController.create);
 router.get("/documents", auth, DocumentController.get);
 
