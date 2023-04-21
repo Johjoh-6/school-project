@@ -4,6 +4,7 @@ import Teacher from "./Teacher.model";
 
 
 interface Schedule {
+    _id?: string;
     dayOfWeek: string;
 	startTime: string;
 	endTime: string;
