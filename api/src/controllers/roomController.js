@@ -13,7 +13,7 @@ class RoomController {
 
     async get(req, res) {
         try {
-            const rooms = await Room.find().populate("users");
+            const rooms = await Room.find();
             res.send(rooms);
         } catch (error) {
             res.status(500).send({"error": error});
@@ -23,7 +23,7 @@ class RoomController {
     async getById(req, res) {
         const _id = req.params.id;
         try {
-            const room = await Room.findById(_id).populate("users");
+            const room = await Room.findById(_id);
             if (!room) {
                 return res.status(404).send();
             }

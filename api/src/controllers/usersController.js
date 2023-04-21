@@ -28,7 +28,7 @@ class UsersController {
 	async getById(req, res) {
 		const _id = req.user._id;
 		try {
-			const user = await User.findById(_id);
+			const user = await User.findById(_id).select('+role').populate("documents");
 			if (!user) {
 				return res.status(404).send();
 			}
@@ -41,10 +41,11 @@ class UsersController {
 	async update(req, res) {
 		const _id = req.user._id;
 		try {
-			const user = await User.findByIdAndUpdate(_id, req.body);
+			const user = await User.findByIdAndUpdate(_id, req.body, { new: true, select: '+role'});
 			if (!user) {
 				return res.status(404).send({ error: "cannot find user" });
 			}
+			console.log(req.body.role, user.role);
 			if (req.body.role && user.role !== "staff") {
 				return res.status(401).send({ error: "Unauthorized" });
 			}

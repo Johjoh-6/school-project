@@ -2,8 +2,15 @@ const ClassStudent = require("../models/classStudent.model");
 
 class ClassStudentController {
 	async create(req, res) {
-		const classStudent = new ClassStudent(req.body);
 		try {
+			const classStudent = new ClassStudent();
+			const studentsList = req.body;
+			studentsList.forEach(async (student) => {
+				const stud = await Student.findById(student);
+				if(stud) {
+					classStudent.users.push(stud);
+				}
+			});
 			await classStudent.save();
 			res.status(201).send(classStudent);
 		} catch (error) {
@@ -13,7 +20,7 @@ class ClassStudentController {
 
 	async get(req, res) {
 		try {
-			const classStudents = await ClassStudent.find().populate("users");
+			const classStudents = await ClassStudent.find().populate("user");
 			res.send(classStudents);
 		} catch (error) {
 			res.status(500).send({ error: error });
@@ -23,7 +30,7 @@ class ClassStudentController {
 	async getById(req, res) {
 		const _id = req.params.id;
 		try {
-			const classStudent = await ClassStudent.findById(_id).populate("users");
+			const classStudent = await ClassStudent.findById(_id).populate("user");
 			if (!classStudent) {
 				return res.status(404).send();
 			}
