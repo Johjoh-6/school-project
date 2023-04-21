@@ -3,6 +3,9 @@
     <NuxtLink to="/" class="n-link-base ">
       Home
     </NuxtLink>
+    <NuxtLink to="/student" class="n-link-base ">
+      Student
+    </NuxtLink>
   </nav>
   <NuxtLayout >
     <NuxtPage  />
