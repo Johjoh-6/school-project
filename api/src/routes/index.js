@@ -4,6 +4,8 @@ const authRoutes = require("./auth");
 const usersRoutes = require("./users");
 const teacherRoutes = require("./teacher");
 const classRoutes = require("./classStudent");
+const roomRoutes = require("./room");
+const scheduleRoutes = require("./schedule");
 
 const router = express.Router();
 
@@ -24,6 +26,14 @@ const defaultRoutes = [
 		path: "/class",
 		route: classRoutes,
 	},
+	{
+		path: "/room",
+		route: roomRoutes,
+	},
+	{
+		path: "/schedule",
+		route: scheduleRoutes,
+	}
 ];
 
 defaultRoutes.forEach((route) => {
